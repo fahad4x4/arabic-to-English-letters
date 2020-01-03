@@ -8,6 +8,7 @@ Arabic to English letters
 Convert Arabic file names with Arabic characters to Arabic names with English letters
 
 شكر خاص للمهندس فهد الدريبي
+https://github.com/fduraibi
 
 Special thanks to Engineer Fahad Al-Duraibi
 
