@@ -1,7 +1,4 @@
-
 #!/usr/bin/env python
-#----------------Author: Fahad Alduraibi https://github.com/fduraibi-----------------
-#----------------------------------Fahad alghathbar---------------------------
 # -*- coding: utf-8 -*-
 from os import listdir, rename
 from os.path import isfile, join
