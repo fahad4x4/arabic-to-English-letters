@@ -14,3 +14,6 @@ https://github.com/fduraibi
 Special thanks to Engineer Fahad Al-Duraibi
 
 https://aosus.org/t/topic/188
+
+## how to run كيف يعمل
+python arabic.py
