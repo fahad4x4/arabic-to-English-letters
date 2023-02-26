@@ -1,23 +1,40 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from os import listdir, rename
-from os.path import isfile, join
+import os
+import re
 
-# اكمل المصفوفة بالقيم الكاملة للاستبدال
-arabizi = {'ا':'A', 'ب':'B', 'ت':'T', 'ث':'TH', 'ج':'J', 'ح':'7', 'خ':'5', 'د':'d', 'د':'d', 'ذ':'4', 'د':'d', 'ر':'R', 'ز':'Z', 'س':'S', 'ش':'SH', 'ص':'9', 'د':'d', 'ض':'^9', 'د':'d', 'ط':'6', 'د':'d', 'ظ':'^6', 'د':'d', 'ع':'3', 'د':'d', 'غ':'^3', 'د':'d', 'ف':'F', 'ق':'8', 'د':'d', 'ك':'K', 'ل':'L', 'م':'M', 'ن':'N', 'ه':'H', 'ء':'2', 'د':'d', 'ي':'E', 'ى':'A', 'و':'W', 'أ':'A', 'ة':'H'}
+# قائمة الحروف العربية والحروف المقابلة لها بالأبجدية الإنجليزية
+ARABIC_TO_ENGLISH = {
+    'ا': 'a', 'أ': 'a', 'إ': 'a', 'آ': 'a', 'ب': 'b', 'ت': 't', 'ث': 'th', 'ج': 'j',
+    'ح': 'h', 'خ': 'kh', 'د': 'd', 'ذ': 'th', 'ر': 'r', 'ز': 'z', 'س': 's', 'ش': 'sh',
+    'ص': 's', 'ض': 'd', 'ط': 't', 'ظ': 'z', 'ع': 'aa', 'غ': 'gh', 'ف': 'f', 'ق': 'q',
+    'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n', 'ه': 'h', 'ة': 'h', 'و': 'w', 'ي': 'y'
+}
 
-def replace_all(text, dic):
-    for i, j in dic.iteritems():
-        text = text.replace(i, j)
+# تعويض الحروف العربية بالحروف المقابلة لها بالأبجدية الإنجليزية
+def replace_arabic_with_english(text):
+    for arabic, english in ARABIC_TO_ENGLISH.items():
+        text = text.replace(arabic, english)
     return text
 
-# حدد المسار الذي تريد او ابقه كما هو لاستخدام المسار المحلي
-filepath = "./"
+# تعديل اسم الملف
+def rename_file(file_path):
+    directory, file_name = os.path.split(file_path)
+    new_file_name = replace_arabic_with_english(file_name.lower())
+    new_file_path = os.path.join(directory, new_file_name)
+    if file_path != new_file_path:
+        os.rename(file_path, new_file_path)
 
-for araby in listdir(filepath):
-    if isfile(join(filepath, araby)):   # لعرض الملفات فقط دون المجلدات
-        englized = replace_all(araby, arabizi)
-        if araby != englized:
-            print araby
-            print englized
-            rename(join(filepath, araby), join(filepath, englized))
+# تعديل اسم كل ملف داخل المجلد الحالي
+def rename_files_in_directory(directory):
+    for file_name in os.listdir(directory):
+        file_path = os.path.join(directory, file_name)
+        if os.path.isfile(file_path) and file_name.endswith('.mp3'):
+            rename_file(file_path)
+
+# التأكد من وجود المجلد الحالي وتعديل أسماء الملفات
+if __name__ == '__main__':
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    rename_files_in_directory(current_directory)
+    print("Conversion completed successfully!")
+    print("Script by Fahad ALGhathbar")
