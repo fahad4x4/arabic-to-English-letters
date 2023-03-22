@@ -17,22 +17,23 @@ def replace_arabic_with_english(text):
         text = text.replace(arabic, english)
     return text
 
-# تعديل اسم الملف
-def rename_file(file_path):
-    directory, file_name = os.path.split(file_path)
-    new_file_name = replace_arabic_with_english(file_name.lower())
-    new_file_path = os.path.join(directory, new_file_name)
-    if file_path != new_file_path:
-        os.rename(file_path, new_file_path)
+# تحديث اسم الملف
+def rename_file(file_path, new_file_path):
+    os.rename(file_path, new_file_path)
 
-# تعديل اسم كل ملف داخل المجلد الحالي
+# تحديث اسم جميع الملفات داخل المجلد الحالي
 def rename_files_in_directory(directory):
     for file_name in os.listdir(directory):
         file_path = os.path.join(directory, file_name)
         if os.path.isfile(file_path) and file_name.endswith('.mp3'):
-            rename_file(file_path)
+            # حذف الأرقام والأحرف اللاتينية
+            new_file_name = re.sub(r'\d+|[a-zA-Z]+', '', file_name)
+            new_file_name = replace_arabic_with_english(new_file_name.lower()) + '.mp3'
+            new_file_path = os.path.join(directory, new_file_name)
+            if file_path != new_file_path:
+                rename_file(file_path, new_file_path)
 
-# التأكد من وجود المجلد الحالي وتعديل أسماء الملفات
+# التأكد من وجود المجلد الحالي وتحديث أسماء الملفات
 if __name__ == '__main__':
     current_directory = os.path.dirname(os.path.abspath(__file__))
     rename_files_in_directory(current_directory)
