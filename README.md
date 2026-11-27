@@ -29,6 +29,7 @@
 - Never overwrites an existing file: if the new name is taken, `_2`, `_3`, … is appended.
 - Skips files whose name would not change, and prints each rename plus a final count.
 - Accepts an optional folder path; by default it works in the folder where `arabic.py` is located.
+- Dry-run mode (`--dry-run` / `-n`) shows the planned renames without changing any file.
 
 ### Requirements
 
@@ -49,6 +50,13 @@ python3 arabic.py /path/to/folder
 
 # Or rename the MP3 files in the same folder as arabic.py
 python3 arabic.py
+
+# Preview the renames first without changing anything (dry run)
+python3 arabic.py --dry-run /path/to/folder
+python3 arabic.py -n /path/to/folder
+
+# Show help
+python3 arabic.py --help
 ```
 
 Example output:
@@ -61,6 +69,8 @@ Script by Fahad ALGhathbar
 ```
 
 If `01 alfathh.mp3` already existed, the new file would be named `01 alfathh_2.mp3`.
+
+With `--dry-run`, the same list is printed but no file is renamed, and the last line reads `Dry run: nothing was renamed. (2 files would be renamed)`.
 
 ### Project structure
 
@@ -105,6 +115,7 @@ Special thanks to Eng. Fahad Al-Duraibi ([@fduraibi](https://github.com/fduraibi
 - عدم الكتابة فوق أي ملف موجود: إذا كان الاسم الجديد مستخدمًا تُضاف اللاحقة `_2` أو `_3` وهكذا.
 - تجاهل الملفات التي لن يتغير اسمها، مع طباعة كل عملية إعادة تسمية وعدد الملفات في النهاية.
 - يقبل مسار مجلد اختياريًا، وإذا لم يُحدَّد يعمل على المجلد الموجود فيه `arabic.py`.
+- وضع التجربة (`--dry-run` أو `-n`) يعرض الأسماء الجديدة المقترحة دون تغيير أي ملف.
 
 ### المتطلبات
 
@@ -125,6 +136,13 @@ python3 arabic.py /path/to/folder
 
 # أو إعادة تسمية ملفات MP3 الموجودة في نفس مجلد السكربت
 python3 arabic.py
+
+# معاينة الأسماء الجديدة أولًا دون تغيير أي ملف (وضع التجربة)
+python3 arabic.py --dry-run /path/to/folder
+python3 arabic.py -n /path/to/folder
+
+# عرض المساعدة
+python3 arabic.py --help
 ```
 
 مثال على المخرجات:
@@ -137,6 +155,8 @@ Script by Fahad ALGhathbar
 ```
 
 ولو كان الملف `01 alfathh.mp3` موجودًا مسبقًا، فسيُسمّى الملف الجديد `01 alfathh_2.mp3`.
+
+ومع الخيار `--dry-run` تُطبع القائمة نفسها دون إعادة تسمية أي ملف، ويكون السطر الأخير: `Dry run: nothing was renamed. (2 files would be renamed)`.
 
 ### هيكل المشروع
 
